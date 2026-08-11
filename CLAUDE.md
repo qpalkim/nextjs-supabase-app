@@ -67,3 +67,13 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 
 - Supabase 관련 작업(테이블 조회, 마이그레이션 적용, advisor/로그 확인, 타입 생성)은 `mcp__supabase__*` 툴을 사용한다. 스키마 변경 전 `list_tables`로 현재 구조를 확인하고, 문제 디버깅 시 `get_advisors`/`get_logs`부터 확인한다.
 - 라이브러리/프레임워크 문서(Next.js, Supabase, shadcn/ui 등) 조회는 Context7 MCP를 우선 사용한다.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
