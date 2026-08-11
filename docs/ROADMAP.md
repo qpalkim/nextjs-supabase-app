@@ -53,47 +53,51 @@
 
 ## 개발 단계
 
-### Phase 1: 애플리케이션 골격 구축
+### Phase 1: 애플리케이션 골격 구축 ✅
 
 모임 매니저 고유 도메인(모임/회차/공지/RSVP/참여자/카풀/정산)의 라우트, 레이아웃, 타입 정의 골격을 완성한다. 인증/DB 클라이언트 기반은 선행 완료 사항을 그대로 사용한다. 데이터베이스 스키마 마이그레이션은 Phase 2 UI 완성 이후 Phase 3 초반(Task 013)에 진행한다.
 
-#### Task 001: 모임 매니저 라우트 구조 및 빈 페이지 생성 - 우선순위
+#### Task 001: 모임 매니저 라우트 구조 및 빈 페이지 생성 ✅ - 완료
 
-- [ ] `app/(main)/page.tsx` — 홈 페이지 라우트 생성 (내 모임 목록, 빈 셸)
-- [ ] `app/groups/new/page.tsx` — 모임 생성 페이지 라우트
-- [ ] `app/groups/[groupId]/page.tsx` — 모임 상세 페이지(공지/일정 탭 포함) 라우트
-- [ ] `app/groups/[groupId]/events/[eventId]/page.tsx` — 회차 상세 페이지 라우트
-- [ ] `app/groups/[groupId]/members/page.tsx` — 참여자 관리 페이지 라우트 (주최자 전용)
-- [ ] `app/groups/[groupId]/carpool/page.tsx` — 카풀 페이지 라우트
-- [ ] `app/groups/[groupId]/settlement/page.tsx` — 정산 페이지 라우트
-- [ ] `app/invite/[code]/page.tsx` — 초대 합류 페이지 라우트 (내비게이션 메뉴 미노출)
-- [ ] 각 페이지는 제목과 "준비 중" 플레이스홀더만 렌더링하는 최소 골격으로 작성
-- [ ] `app/protected/*` 등 기존 스타터킷 전용 라우트와 충돌 없는지 확인
+- [x] `app/(main)/page.tsx` — 홈 페이지 라우트 생성 (내 모임 목록, 빈 셸)
+- [x] `app/(main)/groups/new/page.tsx` — 모임 생성 페이지 라우트
+- [x] `app/(main)/groups/[groupId]/page.tsx` — 모임 상세 페이지(공지/일정 탭 포함) 라우트
+- [x] `app/(main)/groups/[groupId]/events/[eventId]/page.tsx` — 회차 상세 페이지 라우트
+- [x] `app/(main)/groups/[groupId]/members/page.tsx` — 참여자 관리 페이지 라우트 (주최자 전용)
+- [x] `app/(main)/groups/[groupId]/carpool/page.tsx` — 카풀 페이지 라우트
+- [x] `app/(main)/groups/[groupId]/settlement/page.tsx` — 정산 페이지 라우트
+- [x] `app/invite/[code]/page.tsx` — 초대 합류 페이지 라우트 (내비게이션 메뉴 미노출, `(main)`/`groups` 레이아웃 트리 밖 독립 세그먼트)
+- [x] 각 페이지는 제목과 "준비 중" 플레이스홀더만 렌더링하는 최소 골격으로 작성
+- [x] `app/protected/*` 등 기존 스타터킷 전용 라우트와 충돌 없는지 확인
 
-**수락 기준**: 모든 라우트가 404 없이 접근 가능하고, 각 페이지가 최소한의 placeholder를 렌더링한다.
+**경로 수정 참고**: `groups/*` 경로는 `(main)` 공통 nav를 상속받아야 하므로 계획 당시 표기(`app/groups/...`)가 아니라 `app/(main)/groups/...`에 배치했다(`(main)`은 라우트 그룹이라 URL에는 영향 없음). 기존 `app/page.tsx`(스타터킷 튜토리얼 랜딩)는 `app/(main)/page.tsx`와 `/` 경로가 충돌해 삭제하고 대체했다.
 
-#### Task 002: 공통 레이아웃과 내비게이션 골격 구현
+**수락 기준**: 모든 라우트가 404 없이 접근 가능하고, 각 페이지가 최소한의 placeholder를 렌더링한다. → `npm run check-all`(lint+typecheck+format) 통과로 확인.
 
-- [ ] 로그인 후 공통 메뉴 레이아웃 구현 — 홈 / 모임 만들기 / 로그아웃 (기존 인증 상태를 `lib/supabase/server.ts` 기반으로 판별)
-- [ ] 모임 진입 후(특정 `groupId` 하위) 탭 메뉴 골격 구현 — 공지·일정 / 카풀 / 정산 / 참여자 관리(주최자 전용)
-- [ ] 참여자 관리 탭은 role이 owner인 경우만 노출되도록 조건부 렌더링 자리(placeholder 로직) 마련
-- [ ] 모바일/데스크톱 반응형 레이아웃 뼈대 적용 (Tailwind 기준 breakpoint)
-- [ ] 초대 합류 페이지는 내비게이션에 노출되지 않음을 확인
+#### Task 002: 공통 레이아웃과 내비게이션 골격 구현 ✅ - 완료
+
+- [x] 로그인 후 공통 메뉴 레이아웃 구현 — 홈 / 모임 만들기 / 로그아웃 (기존 인증 상태를 `lib/supabase/server.ts` 기반으로 판별)
+- [x] 모임 진입 후(특정 `groupId` 하위) 탭 메뉴 골격 구현 — 공지·일정 / 카풀 / 정산 / 참여자 관리(주최자 전용)
+- [x] 참여자 관리 탭은 role이 owner인 경우만 노출되도록 조건부 렌더링 자리(placeholder 로직) 마련
+- [x] 모바일/데스크톱 반응형 레이아웃 뼈대 적용 (Tailwind 기준 breakpoint)
+- [x] 초대 합류 페이지는 내비게이션에 노출되지 않음을 확인
+
+**구현 참고**: role 판별 타입은 `lib/types/group.ts`가 아직 없어 `app/(main)/groups/[groupId]/layout.tsx` 내부에 임시 로컬 유니온 타입(`GroupMemberRole`)으로 선언했다. Task 003에서 공유 타입이 생기면 이 로컬 선언을 import로 교체할 예정이다.
 
 **수락 기준**: 임의의 모임 상세 하위 경로 진입 시 공통 탭 메뉴가 표시되고, 화면 너비에 따라 레이아웃이 깨지지 않는다.
 
-#### Task 003: 도메인 타입 및 인터페이스 정의
+#### Task 003: 도메인 타입 및 인터페이스 정의 ✅ - 완료
 
-- [ ] `lib/types/group.ts` — `Group`, `GroupMember`(role: `"owner" | "member"`) 타입 정의
-- [ ] `lib/types/event.ts` — `Event`(회차) 타입 정의
-- [ ] `lib/types/announcement.ts` — `Announcement` 타입 정의 (모임/회차 단위 구분 필드 포함)
-- [ ] `lib/types/rsvp.ts` — `Rsvp`(status: `"attending" | "not_attending" | "undecided" | "waitlisted"`) 타입 정의
-- [ ] `lib/types/carpool.ts` — `CarpoolEntry`(type: `"driver" | "passenger"`) 타입 정의
-- [ ] `lib/types/settlement.ts` — `Expense`, `ExpenseShare` 타입 정의
-- [ ] 모든 타입/인터페이스명은 PascalCase, boolean 필드는 `is`/`has` 접두사 유지 (`isPinned`, `isPaid` 등)
-- [ ] `any` 타입 사용 금지 원칙 준수, 각 타입에 간단한 JSDoc(한국어) 주석 추가
+- [x] `lib/types/group.ts` — `Group`, `GroupMember`(role: `"owner" | "member"`) 타입 정의, `app/(main)/groups/[groupId]/layout.tsx`의 임시 로컬 `GroupMemberRole` 선언을 이 공유 타입 import로 교체
+- [x] `lib/types/event.ts` — `Event`(회차) 타입 정의
+- [x] `lib/types/announcement.ts` — `Announcement` 타입 정의 (모임/회차 단위 구분 필드 포함)
+- [x] `lib/types/rsvp.ts` — `Rsvp`(status: `"attending" | "not_attending" | "undecided" | "waitlisted"`) 타입 정의
+- [x] `lib/types/carpool.ts` — `CarpoolEntry`(type: `"driver" | "passenger"`) 타입 정의
+- [x] `lib/types/settlement.ts` — `Expense`, `ExpenseShare` 타입 정의
+- [x] 모든 타입/인터페이스명은 PascalCase, boolean 필드는 `is`/`has` 접두사 유지 (`isPinned`, `isPaid` 등)
+- [x] `any` 타입 사용 금지 원칙 준수, 각 타입에 간단한 JSDoc(한국어) 주석 추가
 
-**수락 기준**: `npm run typecheck` 통과, Phase 2 UI 작업에서 더미 데이터가 이 타입들로 타입체크된다.
+**수락 기준**: `npm run typecheck` 통과, Phase 2 UI 작업에서 더미 데이터가 이 타입들로 타입체크된다. → 확인 완료.
 
 ---
 
