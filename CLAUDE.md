@@ -9,15 +9,21 @@ Next.js + Supabase 인증 스타터 킷. `supabase-ssr`를 사용해 쿠키 기�
 ## Commands
 
 ```bash
-npm run dev      # 개발 서버 (localhost:3000)
-npm run build    # 프로덕션 빌드
-npm run start    # 프로덕션 서버 실행
-npm run lint     # ESLint 검사 (next/core-web-vitals, next/typescript)
+npm run dev           # 개발 서버 (localhost:3000)
+npm run build         # 프로덕션 빌드
+npm run start         # 프로덕션 서버 실행
+npm run lint          # ESLint 검사 (next/core-web-vitals, next/typescript, eslint-config-prettier)
+npm run lint:fix      # ESLint 자동 수정
+npm run typecheck     # tsc --noEmit
+npm run format        # Prettier로 전체 포맷팅 (Tailwind 클래스 자동 정렬 포함)
+npm run format:check  # Prettier 포맷 검사만 수행 (CI용)
+npm run check-all     # lint + typecheck + format:check 순차 실행
 ```
 
-- 별도의 `typecheck`/`test`/`format` 스크립트는 정의되어 있지 않다. 타입만 확인하려면 `npx tsc --noEmit`을 사용한다.
 - 테스트 프레임워크는 구성되어 있지 않다.
 - 새 shadcn/ui 컴포넌트 추가: `npx shadcn@latest add <component>`
+- **Git 훅(Husky)**: `pre-commit`에서 `lint-staged`(스테이징된 파일에 eslint --fix + prettier --write)를 실행하고, `pre-push`에서 `typecheck`+`lint` 전체 검사를 실행한다. 타입체크는 프로젝트 전체 타입 그래프가 필요해 파일 단위 부분 검사가 불가능하므로 매 커밋이 아닌 push 시점에 배치했다.
+- **CI**: `.github/workflows/ci.yml`이 push/PR마다 lint → typecheck → build를 실행한다. Supabase 환경변수는 placeholder 값을 워크플로우에 하드코딩해 사용한다(실제 자격증명 불필요).
 
 ## Environment
 
