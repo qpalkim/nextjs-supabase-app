@@ -1,5 +1,6 @@
 import type { GroupMemberRole } from "@/lib/types/group";
 import Link from "next/link";
+import { Suspense } from "react";
 
 interface GroupTab {
   href: (groupId: string) => string;
@@ -29,30 +30,46 @@ function getVisibleTabs(role: GroupMemberRole | null): GroupTab[] {
     : baseTabs;
 }
 
-export default async function GroupLayout({
+export default function GroupLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: Promise<{ groupId: string }>;
 }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <Suspense
+        fallback={
+          <nav className="flex gap-4 overflow-x-auto border-b pb-px text-sm" />
+        }
+      >
+        <GroupTabs params={params} />
+      </Suspense>
+      {children}
+    </div>
+  );
+}
+
+/**
+ * groupId(런타임 params) 접근을 Suspense 경계 안으로 밀어 넣어
+ * 나머지 셸(children 등)은 정적으로 프리렌더되도록 분리한 탭 네비게이션.
+ */
+async function GroupTabs({ params }: { params: Promise<{ groupId: string }> }) {
   const { groupId } = await params;
   const tabs = getVisibleTabs(null);
 
   return (
-    <div className="flex flex-col gap-4">
-      <nav className="flex gap-4 overflow-x-auto border-b pb-px text-sm">
-        {tabs.map((tab) => (
-          <Link
-            key={tab.label}
-            href={tab.href(groupId)}
-            className="whitespace-nowrap px-1 py-2 hover:underline"
-          >
-            {tab.label}
-          </Link>
-        ))}
-      </nav>
-      {children}
-    </div>
+    <nav className="flex gap-4 overflow-x-auto border-b pb-px text-sm">
+      {tabs.map((tab) => (
+        <Link
+          key={tab.label}
+          href={tab.href(groupId)}
+          className="whitespace-nowrap px-1 py-2 hover:underline"
+        >
+          {tab.label}
+        </Link>
+      ))}
+    </nav>
   );
 }
