@@ -39,13 +39,17 @@ export default function GroupLayout({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <Suspense
-        fallback={
-          <nav className="flex gap-4 overflow-x-auto border-b pb-px text-sm" />
-        }
-      >
-        <GroupTabs params={params} />
-      </Suspense>
+      <div className="lg:relative lg:left-1/2 lg:w-screen lg:max-w-none lg:-translate-x-1/2">
+        <div className="lg:mx-auto lg:max-w-4xl lg:px-8">
+          <Suspense
+            fallback={
+              <nav className="flex gap-4 overflow-x-auto border-b pb-px text-sm" />
+            }
+          >
+            <GroupTabs params={params} />
+          </Suspense>
+        </div>
+      </div>
       {children}
     </div>
   );
