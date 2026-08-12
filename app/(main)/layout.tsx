@@ -19,7 +19,7 @@ export default function MainLayout({
       <div className="flex w-full flex-1 flex-col items-center gap-8">
         <nav className="flex h-16 w-full justify-center border-b border-b-foreground/10">
           <div className="flex w-full max-w-md items-center justify-between gap-4 p-3 px-5 text-sm">
-            <div className="flex items-center gap-5 font-semibold">
+            <div className="flex shrink-0 items-center gap-5 whitespace-nowrap font-semibold">
               <Link href="/">모임 매니저</Link>
               <Link href="/groups/new">모임 만들기</Link>
             </div>
