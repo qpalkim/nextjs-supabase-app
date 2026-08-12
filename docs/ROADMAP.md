@@ -105,67 +105,81 @@
 
 Phase 1에서 만든 골격 위에 실제 데이터 연동 없이 하드코딩된 더미 데이터로 전 페이지 UI를 완성한다.
 
-#### Task 004: 공통 컴포넌트 라이브러리 및 디자인 시스템 정리
+#### Task 004: 공통 컴포넌트 라이브러리 및 디자인 시스템 정리 ✅ - 완료
 
-- [ ] 모임 카드, 회차 카드, 상태 배지(참석/불참/미정/대기, 완납/미납), 빈 상태(empty state) 컴포넌트를 `components/`에 구현
-- [ ] 필요한 shadcn/ui 컴포넌트 추가 (`npx shadcn@latest add <component>`: dialog, tabs, badge, form 등)
-- [ ] 버튼/타이포/간격 등 디자인 토큰을 Tailwind 기준으로 일관되게 정리
-- [ ] 컴포넌트 단위로 반응형(모바일 우선) 및 접근성(라벨, 포커스 스타일, 대비) 검증
+- [x] 모임 카드, 회차 카드, 상태 배지(참석/불참/미정/대기, 완납/미납), 빈 상태(empty state) 컴포넌트를 `components/`에 구현
+- [x] 필요한 shadcn/ui 컴포넌트 추가 (`npx shadcn@latest add <component>`: dialog, tabs, badge, form 등)
+- [x] 버튼/타이포/간격 등 디자인 토큰을 Tailwind 기준으로 일관되게 정리
+- [x] 컴포넌트 단위로 반응형(모바일 우선) 및 접근성(라벨, 포커스 스타일, 대비) 검증
 
-**수락 기준**: 이후 Phase 2 페이지 Task들이 이 컴포넌트를 재사용하며, `npm run lint` 경고가 없다.
+**구현 참고**: 신규 컴포넌트는 기존 `components/*.tsx` 관례를 따라 도메인 폴더 구분 없이 flat하게 배치했다(`group-card.tsx`, `event-card.tsx`, `rsvp-status-badge.tsx`, `payment-status-badge.tsx`, `empty-state.tsx`). 상태 배지 색상은 컴포넌트마다 하드코딩하지 않고 `components/ui/badge.tsx`의 `badgeVariants`에 `success`/`warning` variant를 추가해 한 곳에서 관리한다. `npx shadcn@latest add form` 실행 시 CLI가 최신 스타일로 기존 `button.tsx`/`label.tsx`를 덮어써 `google-signin-button.tsx`가 참조하는 `ButtonProps` export가 사라지는 회귀가 있어, 두 파일은 원래 버전으로 되돌리고 새로 추가한 8개 프리미티브 파일만 반영했다. Phase 2 전체(Task 006 폼 등)에서 쓰일 `react-hook-form`/`zod`/`@hookform/resolvers` 의존성이 이번에 함께 설치됐다.
 
-#### Task 005: 홈 페이지 UI 구현 (더미 데이터)
+**수락 기준**: 이후 Phase 2 페이지 Task들이 이 컴포넌트를 재사용하며, `npm run lint` 경고가 없다. → `npm run check-all` 통과로 확인.
 
-- [ ] 소속 모임 목록 카드 UI (모임별 다가오는 회차 일정 포함)
-- [ ] 속한 모임이 없을 때의 빈 상태 UI ("모임 만들기" 유도)
-- [ ] "모임 만들기" 버튼 배치
-- [ ] `lib/types/group.ts`, `lib/types/event.ts` 타입을 사용한 더미 데이터 배열로 렌더링
+#### Task 005: 홈 페이지 UI 구현 (더미 데이터) ✅ - 완료
 
-**수락 기준**: 모임 있음/없음 두 케이스 모두 디자인 확인 가능, 반응형 breakpoint에서 카드 레이아웃 정상 동작.
+- [x] 소속 모임 목록 카드 UI (모임별 다가오는 회차 일정 포함)
+- [x] 속한 모임이 없을 때의 빈 상태 UI ("모임 만들기" 유도)
+- [x] "모임 만들기" 버튼 배치
+- [x] `lib/types/group.ts`, `lib/types/event.ts` 타입을 사용한 더미 데이터 배열로 렌더링
 
-#### Task 006: 모임 생성 페이지 UI 구현
+**구현 참고**: `app/(main)/layout.tsx`의 공통 컨테이너가 `max-w-md`로 고정되어 데스크톱에서도 항상 1열이라, 카드 목록은 `grid-cols-*` breakpoint 대신 단순 `flex flex-col gap-4` 세로 스택으로 구현했다(레이아웃 폭은 그대로 유지하기로 결정, `layout.tsx` 미수정). 신규 컴포넌트 없이 Task 004의 `GroupCard`/`EmptyState`/`Button`(asChild)을 그대로 조립했다. 더미 데이터는 `nextEvent` 있음/없음 두 케이스를 모두 포함해 `GroupCard`의 두 렌더 분기를 시연하며, `npm run dev` + Playwright로 모임 있음/빈 상태 두 화면을 실제 브라우저에서 스크린샷으로 확인했다.
 
-- [ ] React Hook Form + Zod로 모임 이름/카테고리/소개/정원 입력 폼 UI 구성 (제출 로직은 미연결)
-- [ ] 반복 규칙(매주/격주/매월, 요일) 선택 UI 구성
-- [ ] "모임 생성" 버튼 및 폼 검증 에러 메시지 UI
+**수락 기준**: 모임 있음/없음 두 케이스 모두 디자인 확인 가능, 반응형 breakpoint에서 카드 레이아웃 정상 동작. → Playwright로 두 상태 시각 확인, `npm run check-all` 통과로 확인.
 
-**수락 기준**: 폼 필드별 Zod 검증 에러가 UI에 표시되고, 제출 시 콘솔 로그 수준으로 값 확인 가능.
+#### Task 006: 모임 생성 페이지 UI 구현 ✅ - 완료
 
-#### Task 007: 모임 상세 페이지 UI 구현 (공지/일정 탭)
+- [x] React Hook Form + Zod로 모임 이름/카테고리/소개/정원 입력 폼 UI 구성 (제출 로직은 미연결)
+- [x] 반복 규칙(매주/격주/매월, 요일) 선택 UI 구성
+- [x] "모임 생성" 버튼 및 폼 검증 에러 메시지 UI
 
-- [ ] 상단 고정 공지 우선 노출 + 최신순 공지 목록 UI (더미 데이터)
-- [ ] 회차(정기 일정) 목록 UI, 회차 선택 시 회차 상세로 이동하는 링크
-- [ ] 주최자 전용 "초대 링크 발급" 버튼 UI (클릭 시 더미 코드/링크 표시)
-- [ ] 주최자 전용 회차 개별 수정 진입 UI
+**구현 참고**: 반복 규칙 필드는 `lib/types/group.ts`의 `Group` 타입에 아직 없어 `app/(main)/groups/new/page.tsx` 내부 zod 스키마로만 로컬 정의했다(타입 파일은 수정하지 않음). 여기서 확립한 `Form`(components/ui/form.tsx) + `zodResolver` 패턴을 Task 008(회차 수정 폼)과 Task 010(게스트 추가 폼)이 그대로 재사용한다.
 
-**수락 기준**: 공지 상단 고정 정렬이 더미 데이터에서 시각적으로 확인되고, 주최자/일반 멤버 뷰가 조건부로 다르게 보이는 자리 표시가 있다.
+**수락 기준**: 폼 필드별 Zod 검증 에러가 UI에 표시되고, 제출 시 콘솔 로그 수준으로 값 확인 가능. → Playwright로 필수값 미입력 제출 시 6개 필드 모두 에러 메시지 노출 확인.
 
-#### Task 008: 회차 상세 페이지 UI 구현 (RSVP UI)
+#### Task 007: 모임 상세 페이지 UI 구현 (공지/일정 탭) ✅ - 완료
 
-- [ ] 회차 정보(일시/장소/정원) 표시 UI
-- [ ] 회차별 공지 표시 UI
-- [ ] 참석/불참/미정 RSVP 버튼 UI (선택 상태 하이라이트)
-- [ ] 정원 초과 시 대기열 등록 안내 및 대기 순번 표시 UI
-- [ ] 주최자 전용 회차 정보 수정 폼 UI
+- [x] 상단 고정 공지 우선 노출 + 최신순 공지 목록 UI (더미 데이터)
+- [x] 회차(정기 일정) 목록 UI, 회차 선택 시 회차 상세로 이동하는 링크
+- [x] 주최자 전용 "초대 링크 발급" 버튼 UI (클릭 시 더미 코드/링크 표시)
+- [x] 주최자 전용 회차 개별 수정 진입 UI
 
-**수락 기준**: RSVP 버튼 클릭 시 로컬 상태(더미)로 선택 상태가 즉시 반영되고, 대기열 케이스가 더미 데이터로 재현된다.
+**구현 참고**: 신규 `components/invite-link-button.tsx`(client)가 Dialog로 더미 초대 코드/링크를 표시한다. 페이지 로컬 `CURRENT_USER_ROLE` 더미 상수(owner)로 주최자 전용 UI 노출을 조건부 분기했다 — `app/(main)/groups/[groupId]/layout.tsx`의 role-null 탭 로직과는 별개이며 그 파일은 수정하지 않았다(실제 role 배선은 Phase 3 Task 024).
 
-#### Task 009: 초대 합류 페이지 UI 구현
+**수락 기준**: 공지 상단 고정 정렬이 더미 데이터에서 시각적으로 확인되고, 주최자/일반 멤버 뷰가 조건부로 다르게 보이는 자리 표시가 있다. → Playwright로 고정 공지 최상단 노출, 초대 링크 다이얼로그 동작 확인.
 
-- [ ] 초대 대상 모임 정보 미리보기 UI (모임명/카테고리/소개)
-- [ ] "모임 합류하기" 버튼 UI
-- [ ] 유효하지 않은 초대 코드에 대한 에러 상태 UI
+#### Task 008: 회차 상세 페이지 UI 구현 (RSVP UI) ✅ - 완료
 
-**수락 기준**: 정상/오류 케이스 모두 더미 데이터 기반으로 시각 확인 가능.
+- [x] 회차 정보(일시/장소/정원) 표시 UI
+- [x] 회차별 공지 표시 UI
+- [x] 참석/불참/미정 RSVP 버튼 UI (선택 상태 하이라이트)
+- [x] 정원 초과 시 대기열 등록 안내 및 대기 순번 표시 UI
+- [x] 주최자 전용 회차 정보 수정 폼 UI
 
-#### Task 010: 참여자 관리 페이지 UI 구현
+**구현 참고**: 신규 `components/event-rsvp-section.tsx`(client, 로컬 state로 RSVP 하이라이트+대기 순번 계산)와 `components/event-edit-dialog.tsx`(Task 006과 동일한 Form+zodResolver 패턴을 Dialog에 적용)를 만들었다. 더미 신청 인원(13명) > 정원(12명)으로 대기열 시나리오를 재현했다.
 
-- [ ] 회차 선택 드롭다운/탭 UI
-- [ ] 확정/대기/불참 상태별 카운트 및 명단 UI
-- [ ] 대기열 순서 표시 UI
-- [ ] "게스트 추가" 버튼 및 게스트 등록 폼 UI
+**수락 기준**: RSVP 버튼 클릭 시 로컬 상태(더미)로 선택 상태가 즉시 반영되고, 대기열 케이스가 더미 데이터로 재현된다. → Playwright로 참석 클릭 시 "대기 2번" 안내 노출 확인.
 
-**수락 기준**: 더미 데이터 기준 상태별 카운트 합이 전체 인원과 일치하게 표시된다.
+#### Task 009: 초대 합류 페이지 UI 구현 ✅ - 완료
+
+- [x] 초대 대상 모임 정보 미리보기 UI (모임명/카테고리/소개)
+- [x] "모임 합류하기" 버튼 UI
+- [x] 유효하지 않은 초대 코드에 대한 에러 상태 UI
+
+**구현 참고**: `DUMMY_GROUPS_BY_INVITE_CODE` 매핑(SWIM123, RUN456)으로 유효/무효 코드를 구분하고, 신규 `components/join-group-button.tsx`(client)로 합류 완료 상태 전환을 구현했다.
+
+**수락 기준**: 정상/오류 케이스 모두 더미 데이터 기반으로 시각 확인 가능. → Playwright로 두 케이스 모두 확인.
+
+#### Task 010: 참여자 관리 페이지 UI 구현 ✅ - 완료
+
+- [x] 회차 선택 드롭다운/탭 UI
+- [x] 확정/대기/불참 상태별 카운트 및 명단 UI
+- [x] 대기열 순서 표시 UI
+- [x] "게스트 추가" 버튼 및 게스트 등록 폼 UI
+
+**구현 참고**: 게스트 추가 후 명단에 즉시 반영해야 해 `app/(main)/groups/[groupId]/members/page.tsx` 전체를 client component로 전환했다. 신규 `components/guest-add-dialog.tsx`가 Task 006 폼 패턴을 재사용한다.
+
+**수락 기준**: 더미 데이터 기준 상태별 카운트 합이 전체 인원과 일치하게 표시된다. → Playwright로 게스트 2명 추가 후 확정 4명/총 7명으로 즉시 반영 확인.
 
 #### Task 011: 카풀 페이지 UI 구현
 
