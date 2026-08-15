@@ -26,11 +26,11 @@ export function EmptyState({
       )}
     >
       {Icon ? (
-        <Icon className="h-10 w-10 text-muted-foreground" aria-hidden="true" />
+        <Icon className="text-muted-foreground h-10 w-10" aria-hidden="true" />
       ) : null}
-      <p className="font-semibold text-foreground">{title}</p>
+      <p className="text-foreground font-semibold">{title}</p>
       {description ? (
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground text-sm">{description}</p>
       ) : null}
       {action ? <div className="mt-2">{action}</div> : null}
     </div>

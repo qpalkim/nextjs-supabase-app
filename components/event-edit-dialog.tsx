@@ -128,7 +128,7 @@ export function EventEditDialog({ event }: EventEditDialogProps) {
             </Button>
 
             {isSubmitted ? (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 수정 요청이 콘솔에 기록되었습니다. (실제 저장은 Phase 3에서
                 연동됩니다)
               </p>

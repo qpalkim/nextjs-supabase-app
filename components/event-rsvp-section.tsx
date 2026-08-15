@@ -50,7 +50,7 @@ export function EventRsvpSection({
       </div>
 
       {isWaitlisted ? (
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="text-muted-foreground flex items-center gap-2 text-sm">
           <RsvpStatusBadge status="waitlisted" />
           <span>정원이 가득 차 대기 {waitlistPosition}번으로 등록됩니다.</span>
         </div>

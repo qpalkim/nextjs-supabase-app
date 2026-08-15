@@ -38,7 +38,7 @@ export function InviteLinkButton({ inviteCode }: InviteLinkButtonProps) {
             초대 코드:{" "}
             <span className="font-mono font-semibold">{inviteCode}</span>
           </p>
-          <p className="break-all text-muted-foreground">{inviteUrl}</p>
+          <p className="text-muted-foreground break-all">{inviteUrl}</p>
         </div>
       </DialogContent>
     </Dialog>

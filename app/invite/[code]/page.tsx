@@ -89,7 +89,7 @@ async function InviteCode({ params }: { params: Promise<{ code: string }> }) {
         <CardDescription>{group.category}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-        <p className="text-sm text-muted-foreground">{group.description}</p>
+        <p className="text-muted-foreground text-sm">{group.description}</p>
         <JoinGroupButton />
       </CardContent>
     </Card>

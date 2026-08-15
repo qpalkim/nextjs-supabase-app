@@ -19,14 +19,14 @@ interface GroupCardProps {
 export function GroupCard({ group, nextEvent }: GroupCardProps) {
   return (
     <Link href={`/groups/${group.id}`} className="block w-full">
-      <Card className="h-full w-full transition-colors hover:bg-accent/50">
+      <Card className="hover:bg-accent/50 h-full w-full transition-colors">
         <CardHeader>
           <CardTitle>{group.name}</CardTitle>
           <CardDescription>{group.category}</CardDescription>
         </CardHeader>
         <CardContent>
           {nextEvent ? (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               다음 회차:{" "}
               {new Date(nextEvent.scheduledAt).toLocaleString("ko-KR", {
                 month: "long",
@@ -38,7 +38,7 @@ export function GroupCard({ group, nextEvent }: GroupCardProps) {
               · {nextEvent.location}
             </p>
           ) : (
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               예정된 회차가 없습니다.
             </p>
           )}

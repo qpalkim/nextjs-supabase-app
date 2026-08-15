@@ -141,7 +141,7 @@ async function GroupDetailContent({
               {isOwner ? (
                 <Link
                   href={`/groups/${groupId}/events/${event.id}`}
-                  className="self-end text-sm text-muted-foreground hover:underline"
+                  className="text-muted-foreground self-end text-sm hover:underline"
                 >
                   회차 수정
                 </Link>

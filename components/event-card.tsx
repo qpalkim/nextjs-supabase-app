@@ -22,7 +22,7 @@ export function EventCard({ event }: EventCardProps) {
         </CardTitle>
         {event.isCancelled ? <Badge variant="destructive">휴강</Badge> : null}
       </CardHeader>
-      <CardContent className="space-y-1 text-sm text-muted-foreground">
+      <CardContent className="text-muted-foreground space-y-1 text-sm">
         <p>장소: {event.location}</p>
         <p>정원: {event.capacity}명</p>
       </CardContent>

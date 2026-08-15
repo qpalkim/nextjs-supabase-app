@@ -13,7 +13,7 @@ export function JoinGroupButton() {
 
   if (isJoined) {
     return (
-      <p className="text-sm font-medium text-foreground">
+      <p className="text-foreground text-sm font-medium">
         모임에 합류했습니다!
       </p>
     );

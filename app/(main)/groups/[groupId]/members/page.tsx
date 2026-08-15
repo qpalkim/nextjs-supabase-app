@@ -122,7 +122,7 @@ export default function GroupMembersPage() {
                 value={event.id}
                 className="flex flex-col gap-4"
               >
-                <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+                <div className="text-muted-foreground flex flex-wrap items-center gap-3 text-sm">
                   {STATUS_LABELS.map(({ status, label }) => (
                     <span key={status}>
                       {label}{" "}
@@ -144,13 +144,13 @@ export default function GroupMembersPage() {
                         <span className="text-sm">
                           {participant.name}
                           {participant.isGuest ? (
-                            <span className="ml-1 text-xs text-muted-foreground">
+                            <span className="text-muted-foreground ml-1 text-xs">
                               (게스트)
                             </span>
                           ) : null}
                           {participant.status === "waitlisted" &&
                           waitlistIndex >= 0 ? (
-                            <span className="ml-1 text-xs text-muted-foreground">
+                            <span className="text-muted-foreground ml-1 text-xs">
                               대기 {waitlistIndex + 1}번
                             </span>
                           ) : null}
@@ -164,7 +164,7 @@ export default function GroupMembersPage() {
                 {/* 데스크톱: 테이블 목록 */}
                 <div className="hidden overflow-x-auto rounded-md border lg:block">
                   <table className="w-full text-sm">
-                    <thead className="border-b bg-muted/50 text-left text-muted-foreground">
+                    <thead className="bg-muted/50 text-muted-foreground border-b text-left">
                       <tr>
                         <th className="px-4 py-2 font-medium">이름</th>
                         <th className="px-4 py-2 font-medium">구분</th>
@@ -183,10 +183,10 @@ export default function GroupMembersPage() {
                             className="border-b last:border-0"
                           >
                             <td className="px-4 py-2">{participant.name}</td>
-                            <td className="px-4 py-2 text-muted-foreground">
+                            <td className="text-muted-foreground px-4 py-2">
                               {participant.isGuest ? "게스트" : "멤버"}
                             </td>
-                            <td className="px-4 py-2 text-muted-foreground">
+                            <td className="text-muted-foreground px-4 py-2">
                               {participant.status === "waitlisted" &&
                               waitlistIndex >= 0
                                 ? `${waitlistIndex + 1}번`

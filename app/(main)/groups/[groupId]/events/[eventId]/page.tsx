@@ -81,7 +81,7 @@ async function EventDetailContent({
             <Badge variant="destructive">휴강</Badge>
           ) : null}
         </CardHeader>
-        <CardContent className="flex flex-col gap-1 text-sm text-muted-foreground">
+        <CardContent className="text-muted-foreground flex flex-col gap-1 text-sm">
           <p>장소: {dummyEvent.location}</p>
           <p>정원: {dummyEvent.capacity}명</p>
           <p>신청 인원: {DUMMY_ATTENDING_COUNT}명</p>

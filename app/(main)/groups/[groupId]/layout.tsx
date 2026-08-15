@@ -69,7 +69,7 @@ async function GroupTabs({ params }: { params: Promise<{ groupId: string }> }) {
         <Link
           key={tab.label}
           href={tab.href(groupId)}
-          className="whitespace-nowrap px-1 py-2 hover:underline"
+          className="px-1 py-2 whitespace-nowrap hover:underline"
         >
           {tab.label}
         </Link>
