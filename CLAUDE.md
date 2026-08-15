@@ -56,12 +56,11 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 
 ### 경로 별칭과 폴더 배치
 
-`tsconfig.json`의 `@/*`는 리포지토리 루트를 가리킨다(`src/` 디렉터리 없음 — `app/`, `components/`, `lib/`가 모두 루트에 위치). `docs/guides/*.md`는 일반적인 Next.js/React 패턴 가이드이며 `src/` 기준 예시가 섞여 있으니, 실제 파일 배치는 이 리포지토리의 현재 구조(`app/`, `components/`, `components/ui/`, `components/tutorial/`, `lib/`)를 따른다.
+`tsconfig.json`의 `@/*`는 리포지토리 루트를 가리킨다(`src/` 디렉터리 없음 — `app/`, `components/`, `lib/`가 모두 루트에 위치). `docs/guides/*.md`는 일반적인 Next.js/React 패턴 가이드이며 `src/` 기준 예시가 섞여 있으니, 실제 파일 배치는 이 리포지토리의 현재 구조(`app/`, `components/`, `components/ui/`, `lib/`)를 따른다.
 
 - `components/ui/` — shadcn/ui 원자 컴포넌트 (new-york 스타일, `components.json` 참고)
-- `components/tutorial/` — 스타터 킷 기본 온보딩 UI, 실제 기능 추가 시 참고용이며 대체 대상
 - `app/auth/*` — 로그인/회원가입/비밀번호 재설정 등 인증 페이지, `app/auth/confirm/route.ts`가 이메일 확인 콜백 처리
-- `app/protected/*` — 로그인 필요 페이지 (proxy에서 강제되므로 페이지 자체 가드는 최소한만 필요)
+- 스타터 킷 기본 온보딩 데모(`app/protected/*`, `components/tutorial/*`)는 제거되었다 — 로그인 후에는 홈(`/`)으로 이동한다.
 
 ## MCP / 툴 사용 지침
 
