@@ -13,7 +13,7 @@ export async function AuthButton() {
 
   return user ? (
     <div className="flex min-w-0 items-center gap-4">
-      <span className="truncate">Hey, {user.email}!</span>
+      <span className="truncate">{user.email}님, 안녕하세요!</span>
       <div className="shrink-0">
         <LogoutButton />
       </div>
@@ -21,10 +21,10 @@ export async function AuthButton() {
   ) : (
     <div className="flex gap-2">
       <Button asChild size="sm" variant={"outline"}>
-        <Link href="/auth/login">Sign in</Link>
+        <Link href="/auth/login">로그인</Link>
       </Button>
       <Button asChild size="sm" variant={"default"}>
-        <Link href="/auth/sign-up">Sign up</Link>
+        <Link href="/auth/sign-up">회원가입</Link>
       </Button>
     </div>
   );

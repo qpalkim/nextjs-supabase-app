@@ -13,9 +13,7 @@ interface GoogleSignInButtonProps {
  * 로그인/회원가입 폼 양쪽에서 재사용하는 Google OAuth 로그인 버튼.
  * 부모 폼과 로딩/에러 상태를 공유하지 않고 독립적으로 관리한다.
  */
-export function GoogleSignInButton({
-  next = "/protected",
-}: GoogleSignInButtonProps) {
+export function GoogleSignInButton({ next = "/" }: GoogleSignInButtonProps) {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +31,7 @@ export function GoogleSignInButton({
       });
       if (error) throw error;
     } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "An error occurred");
+      setError(error instanceof Error ? error.message : "오류가 발생했습니다.");
       setIsLoading(false);
     }
   };
@@ -48,7 +46,7 @@ export function GoogleSignInButton({
         onClick={handleGoogleSignIn}
       >
         <GoogleIcon />
-        {isLoading ? "Redirecting..." : "Continue with Google"}
+        {isLoading ? "이동 중..." : "Google로 계속하기"}
       </Button>
       {error && <p className="text-sm text-red-500">{error}</p>}
     </div>

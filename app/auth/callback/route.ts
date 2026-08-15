@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   const code = searchParams.get("code");
   const error = searchParams.get("error");
   const errorDescription = searchParams.get("error_description");
-  const next = searchParams.get("next") ?? "/protected";
+  const next = searchParams.get("next") ?? "/";
 
   // 사용자가 Google 동의 화면에서 거부한 경우 등, provider가 에러를 실어 보낸 케이스를 우선 처리
   if (error) {
@@ -31,5 +31,5 @@ export async function GET(request: NextRequest) {
   }
 
   // code도 error도 없는 예상치 못한 접근
-  redirect(`/auth/error?error=No code provided`);
+  redirect(`/auth/error?error=인증 코드가 없습니다`);
 }
